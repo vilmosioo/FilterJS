@@ -1,23 +1,16 @@
 (function(root, undefined) {
 
-  "use strict";
+	'use strict';
 
+	// Base function.
+	var FilterJS = function() {
+		// Add functionality here.
+		return true;
+	};
 
-/* FilterJS main */
+	// Version.
+	FilterJS.VERSION = '0.0.0';
 
-// Base function.
-var FilterJS = function() {
-  // Add functionality here.
-  return true;
-};
-
-
-// Version.
-FilterJS.VERSION = '0.0.0';
-
-
-// Export to the root, which is probably `window`.
-root.FilterJS = FilterJS;
-
-
+	// Export to the root, which is probably `window`.
+	root.FilterJS = FilterJS;
 }(this));

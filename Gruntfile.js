@@ -1,64 +1,67 @@
 module.exports = function(grunt) {
 
-  grunt.initConfig({
+	// load all grunt tasks
+	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    pkg: grunt.file.readJSON('package.json'),
+	grunt.initConfig({
 
-    concat: {
-      options: {
-        separator: "\n\n"
-      },
-      dist: {
-        src: [
-          'src/_intro.js',
-          'src/main.js',
-          'src/_outro.js'
-        ],
-        dest: 'dist/<%= pkg.name.replace(".js", "") %>.js'
-      }
-    },
+		pkg: grunt.file.readJSON('package.json'),
 
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name.replace(".js", "") %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-      },
-      dist: {
-        files: {
-          'dist/<%= pkg.name.replace(".js", "") %>.min.js': ['<%= concat.dist.dest %>']
-        }
-      }
-    },
+		concat: {
+			options: {
+				separator: "\n\n"
+			},
+			dist: {
+				src: [
+					'src/**/*.js',
+				],
+				dest: 'dist/<%= pkg.name %>.js'
+			}
+		},
 
-    qunit: {
-      files: ['test/*.html']
-    },
+		uglify: {
+			options: {
+				banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+			},
+			dist: {
+				files: {
+					'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+				}
+			}
+		},
 
-    jshint: {
-      files: ['dist/FilterJS.js'],
-      options: {
-        globals: {
-          console: true,
-          module: true,
-          document: true
-        },
-        jshintrc: '.jshintrc'
-      }
-    },
+		jshint: {
+			options: {
+				reporter: require('jshint-stylish')
+			},
+			dist: {
+				src: ['src/**/*.js'],
+				options: {
+					jshintrc: '.jshintrc'
+				}
+			},
+			test: {
+				src: ['test/**/*.js'],
+				options: {
+					jshintrc: 'test/.jshintrc'
+				}
+			}
+		},
 
-    watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['concat', 'jshint', 'qunit']
-    }
+		karma: {
+			unit: {
+				configFile: 'karma.conf.js'
+			}
+		},
 
-  });
+		watch: {
+			files: ['<%= jshint.files %>'],
+			tasks: ['test', 'concat']
+		}
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
+	});
 
-  grunt.registerTask('test', ['jshint', 'qunit']);
-  grunt.registerTask('default', ['concat', 'jshint', 'qunit', 'uglify']);
+	grunt.registerTask('test', ['jshint', 'karma']);
+	grunt.registerTask('default', ['test', 'concat', 'uglify']);
 
 };
