@@ -82,6 +82,8 @@
 	"globals"       : {
 		"console": true,
 		"window": true,
-		"document": true
+		"document": true,
+		"module": true,
+		"define": true
 	}
 }

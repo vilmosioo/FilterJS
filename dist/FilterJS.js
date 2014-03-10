@@ -1,16 +1,21 @@
-(function(root, undefined) {
+'use strict';
 
-	'use strict';
+(function(root){
 
-	// Base function.
-	var FilterJS = function() {
-		// Add functionality here.
-		return true;
-	};
+	var FilterJS = root.FilterJS = function(){},
+		proto = FilterJS.prototype;
 
-	// Version.
-	FilterJS.VERSION = '0.0.0';
+	proto.VERSION = '0.0.0';
 
-	// Export to the root, which is probably `window`.
-	root.FilterJS = FilterJS;
-}(this));
+	// export to multiple environments
+	if (typeof define === 'function' && define.amd){
+		// AMD
+		define(function(){
+			return FilterJS;
+		});
+	} else if (typeof module !== 'undefined' && module.exports){
+		// Node
+		module.exports = FilterJS;
+	}
+
+})(window);

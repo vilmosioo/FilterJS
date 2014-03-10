@@ -7,6 +7,18 @@ module.exports = function(grunt) {
 
 		pkg: grunt.file.readJSON('package.json'),
 
+		// Empties folders to start fresh
+		clean: {
+			dist: {
+				files: [{
+					dot: true,
+					src: [
+						'dist'
+					]
+				}]
+			}
+		},
+
 		concat: {
 			options: {
 				separator: "\n\n"
@@ -54,9 +66,12 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// Watches files for changes and runs tasks based on the changed files
 		watch: {
-			files: ['<%= jshint.files %>'],
-			tasks: ['test', 'concat']
+			js: {
+				files: ['src/**/*.js'],
+				tasks: ['default']
+			}
 		}
 
 	});
