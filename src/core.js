@@ -17,6 +17,7 @@
 
 	var FilterJS = function(){
 		this.hooks = {};
+		this.version = '@@version';
 	};
 
 	FilterJS.prototype = {
@@ -47,17 +48,17 @@
 		 * Removes the specified callback from the specified filter. Can remove an array of callbacks.
 		 * */
 		removeFilter: function(name, cb){
-			var listeners = this.getHooks(name);
+			var listeners = this.getHooks(name), index = -1;
 
 			if(cb instanceof Array){
 				for(var i = 0, l = cb.length; i < l; i++){
-					var index = listeners.indexOf(cb[i]);
+					index = listeners.indexOf(cb[i]);
 					if(index !== -1){
 						listeners.splice(index, 1);
 					}
 				}
 			} else {
-				var index = listeners.indexOf(cb);
+				index = listeners.indexOf(cb);
 				if(index !== -1){
 					listeners.splice(index, 1);
 				}

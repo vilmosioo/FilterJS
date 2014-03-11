@@ -15,7 +15,7 @@ beforeEach(function() {
 	};
 
 	var _type = function (obj) {
-		if (obj == null) {
+		if (obj === null) {
 			return String(obj);
 		}
 		return typeof obj === 'object' || typeof obj === 'function' ? _class2type[toString.call(obj)] || 'object' : typeof obj;

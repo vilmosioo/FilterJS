@@ -9,9 +9,11 @@ module.exports = function(grunt) {
 		test: 'test'
 	};
 
+	var pkg = grunt.file.readJSON('package.json');
+
 	grunt.initConfig({
 
-		pkg: grunt.file.readJSON('package.json'),
+		pkg: pkg,
 		config: config,
 		// Empties folders to start fresh
 		clean: {
@@ -53,7 +55,7 @@ module.exports = function(grunt) {
 				reporter: require('jshint-stylish')
 			},
 			src: {
-				src: ['<%= config.dist %>/<%= pkg.name %>.js'],
+				src: ['<%= config.src %>/**/*.js'],
 				options: {
 					jshintrc: '.jshintrc'
 				}
@@ -83,11 +85,30 @@ module.exports = function(grunt) {
 				files: ['<%= config.test %>/**/*.js'],
 				tasks: ['jshint:test']
 			}
+		},
+
+		// replaces content from src and includes it in the build
+		replace: {
+			dist:{
+				options: {
+					patterns: [
+						{
+							match: 'version',
+							replacement: pkg.version, // replaces "@@version" to "*.*.*"
+							expression: false   // simple variable lookup
+						}
+					]
+				},
+				files: [{
+					src: '<%= config.dist %>/<%= pkg.name %>.js',
+					dest: '<%= config.dist %>/<%= pkg.name %>.js'
+				}]
+			}
 		}
 
 	});
 
 	grunt.registerTask('test', ['jshint', 'karma']);
-	grunt.registerTask('default', ['test', 'concat', 'uglify']);
+	grunt.registerTask('default', ['test', 'concat', 'replace', 'uglify']);
 
 };

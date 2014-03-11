@@ -21,7 +21,7 @@ describe('Method: addFilter', function(){
 			return data;
 		}, function(data){
 			return data;
-		}]
+		}];
 
 		f.addFilter('filter1', hooks);
 		expect(f.hooks).toHaveKey('filter1');
@@ -30,12 +30,12 @@ describe('Method: addFilter', function(){
 
 	it('should add hooks to a filter in order', function(){
 		var listener = function(data){
-			return data
+			return data;
 		}, hooks = [function(data){
 			return data;
 		}, function(data){
 			return data;
-		}]
+		}];
 
 		f.addFilter('filter1', listener);
 		expect(f.hooks).toHaveKey('filter1');
@@ -43,5 +43,5 @@ describe('Method: addFilter', function(){
 
 		f.addFilter('filter1', hooks);
 		expect(f.hooks['filter1']).toHaveLengthOf(1 + hooks.length);
-	})
+	});
 });
