@@ -1,9 +1,6 @@
 'use strict';
 
-var FilterJS = FilterJS || {};
-
-FilterJS.Filters = function(f){
-
+(function(root){
 	// initialise variables
 	var _filters = {};
 
@@ -23,5 +20,4 @@ FilterJS.Filters = function(f){
 		}
 	};
 
-	this.addFilter = _addFilter;
-};
+})( (typeof window === 'object' && window ) || this);

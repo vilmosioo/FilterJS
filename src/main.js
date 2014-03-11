@@ -1,24 +1,19 @@
 'use strict';
 
-var FilterJS = function(){
+(function(root){
+	var FilterJS = root.FilterJS || function(){},
+		proto = FilterJS.prototype;
 
-	this.version = '0.0.0';
+	proto.version = '0.0.0';
 
-	var filters = new FilterJS.Filters();
+	// CommonJS
+	if (typeof exports === 'object' && module){
+		module.exports = new FilterJS();
+		// AMD
+	} else if (typeof define === 'function' && define.amd){
+		define(FilterJS);
+		// Browser
+	}
 
-	// Filter management
-	this.addFilter = filters.addFilter;
-};
-
-// Export to multiple environments
-if (typeof define === 'function' && define.amd){
-	// AMD
-	define(function(){
-		return FilterJS;
-	});
-} else if (typeof module !== 'undefined' && module.exports){
-	// Node
-	module.exports = FilterJS;
-}
-
-window.FilterJS = FilterJS;
+	root.FilterJS = FilterJS;
+})( (typeof window === 'object' && window ) || this);
