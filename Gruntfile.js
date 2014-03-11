@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
 	var config = {
 		src: 'src',
-		dist: 'dist',
+		dist: '.', // the dist folder is the root folder
 		test: 'test'
 	};
 
