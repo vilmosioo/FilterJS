@@ -43,7 +43,26 @@
 				listeners.push(cb);
 			}
 		},
-		removeFilter: function(){},
+		/**
+		 * Removes the specified callback from the specified filter. Can remove an array of callbacks.
+		 * */
+		removeFilter: function(name, cb){
+			var listeners = this.getListeners(name);
+
+			if(cb instanceof Array){
+				for(var i = 0, l = cb.length; i < l; i++){
+					var index = listeners.indexOf(cb[i]);
+					if(index !== -1){
+						listeners.splice(index, 1);
+					}
+				}
+			} else {
+				var index = listeners.indexOf(cb);
+				if(index !== -1){
+					listeners.splice(index, 1);
+				}
+			}
+		},
 		removeAllFilters: function(){},
 		applyFilters: function(){}
 	};
