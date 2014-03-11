@@ -1,16 +1,17 @@
-(function(root, FilterJS){
+(function(root, factory){
 	'use strict';
 
 	// CommonJS
 	if (typeof exports === 'object' && module){
-		module.exports = new FilterJS();
+		module.exports = factory();
 		// AMD
 	} else if (typeof define === 'function' && define.amd){
-		define(FilterJS);
+		define(factory);
 	}
 
 	// Browser
-	root.FilterJS = FilterJS;
+	root.FilterJS = factory();
+
 })( (typeof window === 'object' && window ) || this, function(){
 	'use strict';
 
