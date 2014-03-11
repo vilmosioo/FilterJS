@@ -3,17 +3,23 @@ module.exports = function(grunt) {
 	// load all grunt tasks
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+	var config = {
+		src: 'src',
+		dist: 'dist',
+		test: 'test'
+	};
+
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
-
+		config: config,
 		// Empties folders to start fresh
 		clean: {
 			dist: {
 				files: [{
 					dot: true,
 					src: [
-						'dist'
+						'<%= config.dist %>'
 					]
 				}]
 			}
@@ -25,9 +31,9 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: [
-					'src/**/*.js',
+					'<%= config.src %>/**/*.js',
 				],
-				dest: 'dist/<%= pkg.name %>.js'
+				dest: '<%= config.dist %>/<%= pkg.name %>.js'
 			}
 		},
 
@@ -37,7 +43,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+					'<%= config.dist %>/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
 				}
 			}
 		},
@@ -46,8 +52,8 @@ module.exports = function(grunt) {
 			options: {
 				reporter: require('jshint-stylish')
 			},
-			dist: {
-				src: ['src/**/*.js'],
+			src: {
+				src: ['<%= config.dist %>/<%= pkg.name %>.js'],
 				options: {
 					jshintrc: '.jshintrc'
 				}
@@ -67,10 +73,15 @@ module.exports = function(grunt) {
 		},
 
 		// Watches files for changes and runs tasks based on the changed files
+		// Only performs jshint test, karma watch is handled by the IDE
 		watch: {
 			js: {
-				files: ['src/**/*.js'],
-				tasks: ['default']
+				files: ['<%= config.src %>/**/*.js'],
+				tasks: ['concat', 'uglify', 'jshint:src']
+			},
+			test: {
+				files: ['<%= config.test %>/**/*.js'],
+				tasks: ['jshint:test']
 			}
 		}
 
