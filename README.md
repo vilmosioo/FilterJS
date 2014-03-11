@@ -1,6 +1,6 @@
 # FilterJS
 
-A lightweight JavaScript library (4kb minified).
+A lightweight JavaScript library (<1 kb minified).
 
 Filters grant access to internal data for other modules at runtime. It is inspired by WordPress's filters and it behaves in mostly the same way. It hooks functions to a specific filter. These filters can be applied to any content from any module. Hooks will transform the data in the order they were given.
 
