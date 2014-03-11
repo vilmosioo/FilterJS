@@ -24,7 +24,7 @@
 		 * Returns the callbacks assigned to a specific name.
 		 * */
 		getListeners: function(name){
-			if(this.listeners.hasOwnProperty(name) || !(this.listeners[name] instanceof Array)){
+			if(!this.listeners.hasOwnProperty(name) || !(this.listeners[name] instanceof Array)){
 				this.listeners[name] = [];
 			}
 			return this.listeners[name];
