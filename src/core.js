@@ -63,13 +63,29 @@
 				}
 			}
 		},
+		/**
+		 * Removes all hooks attached to a filter.
+		 * */
 		removeAllFilters: function(name){
 			var hooks = this.getHooks(name);
 			for(var i = 0, l = hooks.length; i < l; i++){
 				this.removeFilter(name, hooks[i]);
 			}
 		},
-		applyFilters: function(){}
+		/**
+		 * Applies the hooks of a given filter.
+		 * */
+		applyFilters: function(name, data){
+			var result = data;
+			var hooks = this.getHooks(name);
+			for(var i = 0, l = hooks.length; i < l; i++){
+				var hook = hooks[i];
+				if(typeof hook === 'function'){
+					result = hook(result);
+				}
+			}
+			return result;
+		}
 	};
 
 	return FilterJS;
