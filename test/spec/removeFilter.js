@@ -8,27 +8,27 @@ describe('Method: removeFilter', function(){
 		f = new FilterJS();
 	});
 
-	it('should remove a listener from a filter', function(){
+	it('should remove a hook from a filter', function(){
 		var cb = function(data){
 			return data;
 		};
 
 		f.addFilter('filter1', cb);
-		expect(f.listeners['filter1']).toHaveLengthOf(1);
+		expect(f.hooks['filter1']).toHaveLengthOf(1);
 		f.removeFilter('filter1', cb);
-		expect(f.listeners['filter1']).toHaveLengthOf(0);
+		expect(f.hooks['filter1']).toHaveLengthOf(0);
 	});
 
-	it('should remove an array of listeners from a filter', function(){
-		var listeners = [function(data){
+	it('should remove an array of hooks from a filter', function(){
+		var hooks = [function(data){
 			return data;
 		}, function(data){
 			return data;
 		}];
 
-		f.addFilter('filter1', listeners);
-		expect(f.listeners['filter1']).toHaveLengthOf(listeners.length);
-		f.removeFilter('filter1', listeners);
-		expect(f.listeners['filter1']).toHaveLengthOf(0);
+		f.addFilter('filter1', hooks);
+		expect(f.hooks['filter1']).toHaveLengthOf(hooks.length);
+		f.removeFilter('filter1', hooks);
+		expect(f.hooks['filter1']).toHaveLengthOf(0);
 	});
 });

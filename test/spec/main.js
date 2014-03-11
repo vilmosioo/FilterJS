@@ -8,7 +8,7 @@ describe('Core tests', function(){
 		var f = new FilterJS();
 
 		expect(f).toBeDefined();
-		expect(f.listeners).toBeObject();
+		expect(f.hooks).toBeObject();
 		expect(f.addFilter).toBeFunction();
 		expect(f.removeFilter).toBeFunction();
 		expect(f.removeAllFilters).toBeFunction();

@@ -23,7 +23,7 @@
 		/**
 		 * Returns the callbacks assigned to a specific name.
 		 * */
-		getListeners: function(name){
+		getHooks: function(name){
 			if(!this.listeners.hasOwnProperty(name) || !(this.listeners[name] instanceof Array)){
 				this.listeners[name] = [];
 			}
@@ -33,7 +33,7 @@
 		 * Adds a callback for a specific filter. It can accept an array of callbacks.
 		 * */
 		addFilter: function(name, cb){
-			var listeners = this.getListeners(name);
+			var listeners = this.getHooks(name);
 
 			if(cb instanceof Array){
 				for(var i = 0, l = cb.length; i < l; i++){
